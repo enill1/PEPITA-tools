@@ -178,7 +178,7 @@ def score(img, count=10, radius=8, threshold_pct=0.05):
 					continue
 				points.append(img[y][x])
 		relevant_points = sorted(points, reverse=True)[:int(len(points)*threshold_pct)]
-		total += sum(relevant_points)
+		total += np.sum(relevant_points, dtype=np.int64)
 	return total
 
 def show(img, verbose=True, v_file_prefix=''):

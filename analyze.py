@@ -155,7 +155,9 @@ def get_schematic(platefile, target_count, plate_ignore=[], flat=True):
 		plate_ignore.append('')
 
 	with open(platefile, encoding='utf8', newline='') as f:
-		schematic = [[well for well in row if well not in plate_ignore] for row in csv.reader(f)]
+		schematic = [
+			[_clean(well) for well in row if well not in plate_ignore] for row in csv.reader(f)
+		]
 
 	count = sum([len(row) for row in schematic])
 	if count != target_count:# try removing first row and first column, see if then it matches up
@@ -214,6 +216,9 @@ def _calculate_control_values(images, plate_control):
 			'No control wells found. Please supply a --plate-control, or modify the given value.')
 
 	return ctrl_vals
+
+def _clean(s):
+	return ''.join(c for c in s if c.isprintable()).strip()
 
 #
 # main

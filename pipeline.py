@@ -279,7 +279,8 @@ def main(imagefiles, cap=-1, chartfile=None, checkerboard=False, conversions=[],
 					sampling_iterations=1000, sample_size=20, model_size=1, alpha=0.1,
 					file_name_context=plate_info)
 			except ValueError as ve:
-				if ve.args[0] == 'cov must be 2 dimensional and square':
+				if ve.args[0] == 'cov must be 2 dimensional and square' or \
+						ve.args[0] == 'All arrays must be of the same length':
 					print('Unable to analyze non-square interaction matrix')
 				else:
 					raise ve
